@@ -1,4 +1,4 @@
-# GAIA_Dashboard
+# GAIA Dashboard
  Dashboard for Guiding Acid Soil Investments in Sub-Saharan Africa (GAIA)
 
 The Dashboard can be found online at https://startistic.shinyapps.io/GAIA_Dashboard/
