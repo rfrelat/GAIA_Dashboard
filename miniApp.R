@@ -5,6 +5,9 @@ source("global.R")
 selCountry="Ethiopia"
 map_ph(PH[[selCountry]])
 
+alluvial_parcats(tab2b, selCountry, 
+                 pal = palph)
+
 summaryPH(tab2, selCountry)
 
 
@@ -17,7 +20,10 @@ map_lime(cochrane[[selCountry]],
          gadm36[[selCountry]],
          pal = pallime, met = selLime)
 
-b <- donut_lime(tab3, selCountry, selLime)
+donut_lime(tab3, selCountry, selLime)
+
+summaryLime(tab3, selCountry)
+
 
 # TAB 4: Return on investment -------------------
 selCountry="Ethiopia"

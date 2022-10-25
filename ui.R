@@ -7,7 +7,7 @@ shinyUI(fluidPage(
   # run bs_theme_preview() to select customize
   
   # Application title
-  titlePanel("Guiding Acid Soil Investments in Sub-Saharan Africa - GAIA"),
+  titlePanel("Guiding Acid Soil Investments in sub-Saharan Africa - GAIA"),
   
   # Sidebar with the input from users
   sidebarLayout(
@@ -62,8 +62,9 @@ shinyUI(fluidPage(
        Further reading and explanation of the lime requirement methods 
        can be found in: <br>"),
        HTML("-Kamprath, E.J. (1970) <a href='https://doi.org/10.2136/sssaj1970.03615995003400020022x'>Exchangeable aluminum as a criterion for liming leached mineral soils.</a> Soil Science Society of America Journal. <br>"),
-       HTML("-Cochrane, T.T., Salinas, J.G., Sánchez, P.A. (1980) An equation for liming acid mineral soils to compensate crop aluminum tolerance. Tropical Agriculture.")
-       
+       HTML("-Cochrane, T.T., Salinas, J.G., Sánchez, P.A. (1980) An equation for liming acid mineral soils to compensate crop aluminum tolerance. Tropical Agriculture."),
+       h5(''),
+       downloadButton("downloadLime", "Download data")
        ),
      conditionalPanel(
        'input.out === "Return on investment"',
@@ -72,13 +73,13 @@ shinyUI(fluidPage(
                    choices = c("50", "75", "100"),
                    selected = "100"),
        h5(''),
-       downloadButton("downloadROI", "Download data"),
-       h5(''),
        HTML("Crop types aggregate data for the following crops:"),
        HTML("<br>- Cereals: maize, sorghum, wheat, barley, rice, and millet"),
        HTML("<br>- Legumes: bean, chickpea, lentil, cowpea, pigeonpea, soybean, groundnut"),
        HTML("<br>- RTBs: potato, sweet potatotes, cassava, banana, plantain"),
-       HTML("<br>- Commodity: coffee, sugar cane, cotton, coconut, tea, tobacco")
+       HTML("<br>- Commodity: coffee, sugar cane, cotton, coconut, tea, tobacco"),
+       h5(''),
+       downloadButton("downloadROI", "Download data"),
        ),
     width=3),
     # Main panel with the graphs and the plots
@@ -94,7 +95,7 @@ shinyUI(fluidPage(
                           img(src="p1.png", align = "center", width="300"),
                           h1(""),
                           img(src="p2.png", align = "center", width="300"),
-                          HTML('<br>(C) credit to be added'))
+                          HTML('<br>(C) J.V. Silva'))
                  )),
         tabPanel("Soil acidity",
                  fluidRow(
@@ -104,7 +105,8 @@ shinyUI(fluidPage(
                  ),
         tabPanel("Lime requirement",
                  fluidRow(column(6, withSpinner(leafletOutput("mapLime"), type=4)),
-                          column(6, withSpinner(plotlyOutput('donutLime'), type=4)))
+                          column(6, withSpinner(plotlyOutput('donutLime'), type=4))),
+                 fluidRow(withSpinner(DTOutput('tableLime'), type=4))
                  ),
         tabPanel("Return on investment", 
                  fluidRow(

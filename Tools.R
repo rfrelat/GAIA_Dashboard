@@ -1,6 +1,6 @@
 ## Functions to create the outputs of the GAIA Dashboard
 # Author: R. Frelat
-# Last modification: 25 October 2022
+# Last modification: 23 October 2022
 
 ## TAB 2 --------------------------------------------------
 #' Map pH per country
@@ -192,6 +192,23 @@ donut_lime <- function(df, country, met=c("Cochrane", "Kamprath"),
   return(fig)
 }
 
+#' Summary data for lime requirement per country
+#'
+#' This function subset the lime requirement dataset per selected country
+#' @param df data with lime requirement per country, per province
+#' @param country selected country of interest
+summaryLime <- function(df, country){
+  subdf <- df[df$country%in%country,]
+  
+  subdf$lime_mt_kamprath <- round(subdf$lime_mt_kamprath, 3)
+  subdf$lime_mt_cochrane <- round(subdf$lime_mt_cochrane, 3)
+  subdf$lime_mt_merlos <- round(subdf$lime_mt_merlos, 3)
+  
+  names(subdf) <- c("Country", "Province",
+                    "Lime Kamprath (mt)", "Lime Cochrane (mt)", "Lime Merlos (mt)")
+  return(subdf)
+}
+
 ## TAB 4 ------------------------------
 #' Map return on investment per country
 #'
@@ -346,9 +363,9 @@ summaryROI <- function(df, country, province="All", th=1000){
   subdf <- subdf[,colK]
   
   names(subdf) <- c("Country", "Province", "Crop", "Crop type",
-                    "Crop area (ha)", "Return on investment", "Return on investment residuals",
+                    "Crop area (ha)", "Return on investment", "Return on investment long term",
                     "Crop price (USD/t)", "Lime price (USD/t)", "Return (USD)",
-                    "Return residuals (USD)", "Lime requirement (t)", "Cost lime (USD)")
+                    "Return long term (USD)", "Lime requirement (t)", "Cost lime (USD)")
   return(subdf)
 }
 

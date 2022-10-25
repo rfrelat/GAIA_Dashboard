@@ -14,7 +14,6 @@ shinyServer(function(input, output, session) {
                      pal = palph)
     a$x$layout <- list(margin=list(b=10,l=30,t=20, r=30),
                        paper_bgcolor='transparent')
-    
     return(a)
   })
   
@@ -49,6 +48,21 @@ shinyServer(function(input, output, session) {
   output$donutLime <- renderPlotly({           
     fig <- donut_lime(tab3, input$country, input$selLime)
   })
+  
+  output$tableLime <- renderDT({
+    DT::datatable(summaryLime(tab3, input$country),
+                  options = list(pageLength = 3,
+                                 lengthMenu = c(3, 5, 10, 20)))}
+  )
+  
+  output$downloadLime <- downloadHandler(
+    filename = function() {
+      paste("GAIA_Limedata-",input$country, ".csv", sep="")
+    },
+    content = function(file) {
+      write.csv(summaryLime(tab3, input$country), file)
+    }
+  )
   
   # Tab 4: Return on investment
   # UI: select province based on country
